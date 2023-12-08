@@ -30,6 +30,10 @@ find_library(LIBRT rt)
 mark_as_advanced(LIBRT)
 
 # examples
+file(RELATIVE_PATH relativeRpath ${examplesdir} ${libdir})
+set(CMAKE_INSTALL_RPATH $ORIGIN $ORIGIN/${relativeRpath})
+
+
 add_executable(dump dump.cpp)
 target_link_libraries(dump wayland-client++)
 
@@ -47,6 +51,8 @@ target_link_libraries(proxy_wrapper wayland-client++ Threads::Threads)
 add_executable(shm shm.cpp)
 target_link_libraries(shm wayland-client++ wayland-client-extra++ wayland-cursor++)
 
+list(APPEND targets_install dump egl foreign_display proxy_wrapper shm)
+
 if(BUILD_SERVER)
   set(WAYLAND_SCANNERPP wayland-scanner++)
   set(PROTO_XML "${CMAKE_SOURCE_DIR}/example/pingpong.xml")
@@ -57,8 +63,14 @@ if(BUILD_SERVER)
   add_executable(pingpong pingpong.cpp pingpong-client-protocol.cpp pingpong-server-protocol.cpp)
   target_link_libraries(pingpong wayland-client++ wayland-server++ Threads::Threads)
   target_include_directories(pingpong PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
+  list(APPEND targets_install pingpong)
 endif()
 
 if(LIBRT)
   target_link_libraries(shm "${LIBRT}")
 endif()
+
+
+
+install(TARGETS ${targets_install} 
+DESTINATION "${PROJECT_SOURCE_DIR}/__bin/examples")
