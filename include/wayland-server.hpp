@@ -31,6 +31,7 @@
 #include <list>
 #include <memory>
 #include <string>
+#include <cstdint>
 
 #include <wayland-server-core.h>
 #include <wayland-util.hpp>

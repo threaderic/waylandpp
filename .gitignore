@@ -16,3 +16,6 @@ Doxyfile
 example/server
 doc
 /build/
+__venv
+__build
+__bin

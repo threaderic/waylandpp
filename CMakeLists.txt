@@ -62,6 +62,7 @@ set(datarootdir "${CMAKE_INSTALL_FULL_DATAROOTDIR}")
 set(pkgdatadir "${INSTALL_FULL_PKGDATADIR}")
 set(libdir "${CMAKE_INSTALL_FULL_LIBDIR}")
 set(includedir "${CMAKE_INSTALL_FULL_INCLUDEDIR}")
+set(examplesdir "${CMAKE_INSTALL_PREFIX}/examples")
 
 set(install_namespace "Waylandpp")
 
